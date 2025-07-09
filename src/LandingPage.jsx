@@ -4,6 +4,7 @@ import P1 from "./assets/P1.png"
 import P2 from "./assets/P2.png"
 import P3 from "./assets/P3.png"
 import CV from "./assets/Resume.pdf"
+import ChiragMalik from "./assets/ChiragMalik.jpeg"
 
 
 const LandingPage = () => {
@@ -317,6 +318,7 @@ const LandingPage = () => {
             <div className="relative">
               {/* Futuristic Frame */}
               <div className="relative mx-auto w-80 h-80 md:w-96 md:h-96">
+              
                 {/* Outer rotating ring */}
                 <div
                   className="absolute inset-0 rounded-full border-2 border-white opacity-30"
@@ -326,23 +328,28 @@ const LandingPage = () => {
                 >
                   <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full"></div>
                   <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-4 h-4 bg-white rounded-full"></div>
+                  
                 </div>
-                
-                {/* Inner frame */}
-                <div className="absolute inset-8 rounded-3xl border-2 border-white overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 relative">
-                  {/* Placeholder for your image */}
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800">
-                    
-                  </div>
+                {/* Inner circular image container */}
+    <div className="absolute inset-4 rounded-full overflow-hidden border-2 border-white/50">
+      <img
+        src={ChiragMalik}
+        alt="Chirag Malik"
+        className="w-full h-full object-cover"
+      />
+    </div>
+                 
+                  
                   {/* Scanning line effect */}
                   <div
-                    className="absolute inset-0 bg-gradient-to-b from-transparent via-white to-transparent opacity-20"
+                    className="relative overflow-hidden inset-0 bg-gradient-to-b from-transparent via-white to-transparent opacity-20"
                     style={{
                       height: '2px',
                       animation: 'scan 3s ease-in-out infinite',
                     }}
                   ></div>
-                </div>
+                
+                
 
                 {/* Corner brackets */}
                 <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-white"></div>
@@ -477,7 +484,7 @@ const LandingPage = () => {
       link.click();
       document.body.removeChild(link);
     }}
-    className="px-8 py-3 bg-gradient-to-br from-white to-gray-700 text-black font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:shadow-2xl"
+    className="px-8 py-3 bg-gradient-to-br from-white to-gray-700 text-black font-bold rounded-lg transform hover:scale-105 transition-all duration-300 hover:shadow-2xl"
   >
     DOWNLOAD CV
   </button>
