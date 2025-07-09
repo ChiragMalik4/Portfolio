@@ -148,6 +148,74 @@ const LandingPage = () => {
             100% { transform: translateX(100vw); }
           }
         `}
+
+        {`
+  @keyframes float-0 {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) translateY(-15px) rotate(3deg); }
+  }
+  @keyframes float-1 {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) translateY(-20px) rotate(-2deg); }
+  }
+  @keyframes float-2 {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) translateY(-12px) rotate(4deg); }
+  }
+  @keyframes float-3 {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) translateY(-18px) rotate(-3deg); }
+  }
+  @keyframes float-4 {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) translateY(-14px) rotate(2deg); }
+  }
+  @keyframes float-5 {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) translateY(-16px) rotate(-4deg); }
+  }
+  @keyframes float-6 {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) translateY(-11px) rotate(3deg); }
+  }
+  @keyframes float-7 {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) translateY(-19px) rotate(-1deg); }
+  }
+  
+  @keyframes glow-0 {
+    0% { box-shadow: 0 0 5px ${getSkillColor('React')}40; }
+    100% { box-shadow: 0 0 20px ${getSkillColor('React')}60, 0 0 30px ${getSkillColor('React')}40; }
+  }
+  @keyframes glow-1 {
+    0% { box-shadow: 0 0 5px ${getSkillColor('JavaScript')}40; }
+    100% { box-shadow: 0 0 20px ${getSkillColor('JavaScript')}60, 0 0 30px ${getSkillColor('JavaScript')}40; }
+  }
+  @keyframes glow-2 {
+    0% { box-shadow: 0 0 5px ${getSkillColor('TypeScript')}40; }
+    100% { box-shadow: 0 0 20px ${getSkillColor('TypeScript')}60, 0 0 30px ${getSkillColor('TypeScript')}40; }
+  }
+  @keyframes glow-3 {
+    0% { box-shadow: 0 0 5px ${getSkillColor('Python')}40; }
+    100% { box-shadow: 0 0 20px ${getSkillColor('Python')}60, 0 0 30px ${getSkillColor('Python')}40; }
+  }
+  @keyframes glow-4 {
+    0% { box-shadow: 0 0 5px ${getSkillColor('PHP')}40; }
+    100% { box-shadow: 0 0 20px ${getSkillColor('PHP')}60, 0 0 30px ${getSkillColor('PHP')}40; }
+  }
+  @keyframes glow-5 {
+    0% { box-shadow: 0 0 5px ${getSkillColor('SQL')}40; }
+    100% { box-shadow: 0 0 20px ${getSkillColor('SQL')}60, 0 0 30px ${getSkillColor('SQL')}40; }
+  }
+  @keyframes glow-6 {
+    0% { box-shadow: 0 0 5px ${getSkillColor('Flask')}40; }
+    100% { box-shadow: 0 0 20px ${getSkillColor('Flask')}60, 0 0 30px ${getSkillColor('Flask')}40; }
+  }
+  @keyframes glow-7 {
+    0% { box-shadow: 0 0 5px ${getSkillColor('Tailwind')}40; }
+    100% { box-shadow: 0 0 20px ${getSkillColor('Tailwind')}60, 0 0 30px ${getSkillColor('Tailwind')}40; }
+  }
+`}
       </style>
 
       {/* Navigation */}
@@ -257,6 +325,7 @@ const LandingPage = () => {
                       borderColor: getSkillColor(skill),
                       zIndex: 0,
                       filter: 'blur(1.5px)',
+                      animation: `float-${i} ${4 + i * 0.5}s ease-in-out infinite, glow-${i} ${3 + i * 0.3}s ease-in-out infinite alternate`,
                     }}
                   >
                     {skill}
@@ -271,7 +340,7 @@ const LandingPage = () => {
             className={`max-w-2xl mx-auto transition-all duration-1000 ${
               showText ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}
-            style={{ transitionDelay: '2200ms' }}
+            style={{ transitionDelay: '3000ms' }}
           >
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
