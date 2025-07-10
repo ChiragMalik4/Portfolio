@@ -218,21 +218,21 @@ const LandingPage = () => {
 `}
       </style>
 
-      {/* Navigation */}
-      <nav className="relative z-20 p-6 flex justify-between items-center">
-        <div className="text-2xl font-bold text-white">
+     {/* Navigation */}
+      <nav className="relative z-20 p-4 md:p-6 flex justify-between items-center">
+        <div className="text-xl md:text-2xl font-bold text-white">
           <span className="bg-gradient-to-br from-white to-gray-600 bg-clip-text text-transparent">CM</span>
         </div>
-        <div className="flex space-x-6">
+        <div className="hidden md:flex space-x-6">
           {['About', 'Work', 'Skills', 'Contact'].map((item, index) => (
             <button
               key={item}
               onClick={() => {
-          const element = document.getElementById(item.target);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }}
+                const element = document.getElementById(item.toLowerCase());
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className={`px-4 py-2 text-gray-300 font-bold hover:text-white transition-all duration-300 transform hover:scale-105 ${
                 showText ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               }`}
@@ -242,33 +242,35 @@ const LandingPage = () => {
             </button>
           ))}
         </div>
+        {/* Mobile menu button */}
+       
       </nav>
 
       {/* Hero Content */}
-      <div className="relative z-20 flex items-center justify-center min-h-screen pt-20">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+      <div className="relative z-20 flex items-center justify-center min-h-screen px-4 md:px-6 pt-10 md:pt-20">
+        <div className="max-w-6xl mx-auto text-center">
           {/* Main Hero Text */}
           <div
-            className={`mb-8 transition-all duration-1000 ${
+            className={`mb-6 md:mb-8 transition-all duration-1000 ${
               showText ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}
           >
-            <h1 className="text-6xl md:text-8xl font-black text-white mb-4 relative">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black text-white mb-2 md:mb-4 relative leading-tight">
               <span className="bg-gradient-to-br from-white via-gray-600 to-white bg-clip-text text-transparent">
                 HELLO!
               </span>
             </h1>
-            <div className="text-xl md:text-2xl text-gray-300 mb-2">
+            <div className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-1 md:mb-2">
               I'm <span className="text-white font-bold">Chirag Malik</span>
             </div>
-            <div className="text-lg text-gray-300 font-bold mb-6">22 • Frontend Developer</div>
+            <div className="text-base md:text-lg text-gray-300 font-bold mb-4 md:mb-6">22 • Frontend Developer</div>
           </div>
 
           {/* Tech Display */}
-          <div className="relative mb-8 w-full max-w-4xl mx-auto z-10">
+          <div className="relative mb-6 md:mb-8 w-full max-w-4xl mx-auto z-10">
             {/* Central Code Symbol */}
             <div
-              className={`relative mx-auto w-40 h-40 flex items-center justify-center transform transition-all duration-1000 ease-out ${
+              className={`relative mx-auto w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 flex items-center justify-center transform transition-all duration-1000 ease-out ${
                 isLoaded ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-16 opacity-0 scale-0'
               }`}
             >
@@ -290,7 +292,7 @@ const LandingPage = () => {
                   animation: 'spin 2s linear infinite, pulse 1s ease-in-out infinite alternate',
                 }}
               ></div>
-              <div className="relative text-6xl font-black text-white">
+              <div className="relative text-3xl sm:text-4xl md:text-6xl font-black text-white">
                 <span className="text-white inline-block animate-pulse">{'<'}</span>
                 <span className="text-white mx-1 inline-block animate-bounce">{'/'}</span>
                 <span className="text-white inline-block animate-pulse">{'>'}</span>
@@ -303,10 +305,10 @@ const LandingPage = () => {
               ></div>
             </div>
 
-            {/* Circular Skill Badges in Background */}
+            {/* Circular Skill Badges - Hidden on mobile */}
             {['React', 'JavaScript', 'TypeScript', 'Python', 'PHP', 'SQL', 'Flask', 'Tailwind'].map(
               (skill, i, arr) => {
-                const radius = 500;
+                const radius = window.innerWidth < 768 ? 0 : window.innerWidth < 1024 ? 350 : 500;
                 const angle = (i / arr.length) * 2 * Math.PI;
                 const x = radius * Math.cos(angle);
                 const y = radius * Math.sin(angle);
@@ -314,7 +316,7 @@ const LandingPage = () => {
                 return (
                   <div
                     key={skill}
-                    className={`absolute bg-slate-800 text-white px-5 py-3 rounded-full text-sm font-semibold border-2 transition-all duration-1000 ease-out hover:scale-110 ${
+                    className={`hidden md:block floating-skill absolute bg-slate-800 text-white px-5 py-3 md:px-5 md:py-3 rounded-full text-xs md:text-sm font-semibold border-2 transition-all duration-1000 ease-out hover:scale-110 ${
                       showText ? 'translate-y-0 opacity-70' : 'translate-y-12 opacity-0'
                     }`}
                     style={{
@@ -333,34 +335,58 @@ const LandingPage = () => {
                 );
               }
             )}
+
+            {/* Mobile Skills Display */}
+            <div className="md:hidden mt-6">
+              <div className="flex flex-wrap justify-center gap-2 max-w-sm mx-auto">
+                {['React', 'JavaScript', 'TypeScript', 'Python', 'PHP', 'SQL', 'Flask', 'Tailwind'].map(
+                  (skill, i) => (
+                    <div
+                      key={skill}
+                      className={`bg-slate-800 text-white px-3 py-1 rounded-full text-xs font-semibold border transition-all duration-500 ${
+                        showText ? 'translate-y-0 opacity-70' : 'translate-y-4 opacity-0'
+                      }`}
+                      style={{
+                        borderColor: getSkillColor(skill),
+                        transitionDelay: `${1600 + i * 100}ms`,
+                      }}
+                    >
+                      {skill}
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Description */}
           <div
-            className={`max-w-2xl mx-auto transition-all duration-1000 ${
+            className={`max-w-2xl mx-auto transition-all duration-1000 px-4 ${
               showText ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}
             style={{ transitionDelay: '3000ms' }}
           >
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <button
-              onClick={() => {
-          const element = document.getElementById("work");
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }}
-              className="px-8 py-3 bg-gradient-to-br from-white to-gray-700 text-black font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:shadow-lg">
+                onClick={() => {
+                  const element = document.getElementById("work");
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="px-6 py-3 sm:px-8 bg-gradient-to-br from-white to-gray-700 text-black font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:shadow-lg text-sm sm:text-base"
+              >
                 VIEW MY WORK
               </button>
               <button
-              onClick={() => {
-          const element = document.getElementById("contact");
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }}
-              className="px-8 py-3 border-2 border-white text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:bg-white hover:text-black">
+                onClick={() => {
+                  const element = document.getElementById("contact");
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className="px-6 py-3 sm:px-8 border-2 border-white text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:bg-white hover:text-black text-sm sm:text-base"
+              >
                 GET IN TOUCH
               </button>
             </div>
@@ -564,40 +590,56 @@ const LandingPage = () => {
       </div>
 
       {/* Portfolio Section */}
-      <div id='work' className="relative z-20 min-h-screen flex items-center justify-center py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <div id='work' className="relative z-20 min-h-screen flex items-center justify-center py-12 md:py-20">
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-7xl font-black text-white mb-4">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-black text-white mb-2 md:mb-4">
               <span className="bg-gradient-to-br from-white via-gray-600 to-white bg-clip-text text-transparent">
                 My Work
               </span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-6"></div>
-            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            <div className="w-16 md:w-24 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-3 md:mb-6"></div>
+            <p className="text-gray-300 text-base md:text-lg max-w-2xl mx-auto px-4">
               Explore my latest projects and innovations in web development
             </p>
           </div>
 
           {/* Project Slider */}
           <div className="relative">
-            {/* Navigation Buttons */}
+            {/* Navigation Buttons - Hidden on mobile */}
             <button
               onClick={prevProject}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-black/50 border border-white rounded-full p-3 text-white hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-110"
+              className="hidden md:block absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-black/50 border border-white rounded-full p-3 text-white hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-110"
             >
               <ChevronLeft size={24} />
             </button>
             
             <button
               onClick={nextProject}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-black/50 border border-white rounded-full p-3 text-white hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-110"
+              className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-black/50 border border-white rounded-full p-3 text-white hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-110"
             >
               <ChevronRight size={24} />
             </button>
 
+            {/* Mobile Navigation Buttons */}
+            <div className="md:hidden flex justify-center space-x-4 mb-4">
+              <button
+                onClick={prevProject}
+                className="bg-black/50 border border-white rounded-full p-2 text-white hover:bg-white hover:text-black transition-all duration-300"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                onClick={nextProject}
+                className="bg-black/50 border border-white rounded-full p-2 text-white hover:bg-white hover:text-black transition-all duration-300"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+
             {/* Project Cards Container */}
-            <div className="overflow-hidden rounded-2xl border border-gray-700">
+            <div className="overflow-hidden rounded-xl md:rounded-2xl border border-gray-700">
               <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentProject * 100}%)` }}
@@ -608,40 +650,40 @@ const LandingPage = () => {
                     className="w-full flex-shrink-0 bg-gradient-to-br from-gray-900 to-black relative group"
                   >
                     {/* Project Content */}
-                    <div className="flex-col min-h-[600px]">
-                      {/* Right - Project Details */}
-                      <div className="p-8 md:p-12 flex w-full">
-                        <div className='flex flex-col w-[50%]'>
+                    <div className="flex flex-col min-h-[400px] md:min-h-[600px]">
+                      {/* Project Details */}
+                      <div className="p-4 md:p-8 lg:p-12 flex flex-col md:flex-row w-full">
+                        <div className='flex flex-col w-full md:w-[50%]'>
                           {/* Project Number */}
-                          <div className="text-6xl font-black text-white/20 mb-4">
+                          <div className="text-4xl md:text-6xl font-black text-white/20 mb-2 md:mb-4">
                             {String(index + 1).padStart(2, '0')}
                           </div>
 
                           {/* Project Type */}
-                          <div className="text-gray-400 text-sm font-semibold mb-2 uppercase tracking-widest">
+                          <div className="text-gray-400 text-xs md:text-sm font-semibold mb-1 md:mb-2 uppercase tracking-widest">
                             {project.type}
                           </div>
 
                           {/* Project Name */}
-                          <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 md:mb-4">
                             {project.name}
                           </h3>
 
                           {/* Description */}
-                          <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                          <p className="text-gray-300 text-sm md:text-lg leading-relaxed mb-4 md:mb-6">
                             {project.description}
                           </p>
                         </div>
 
-                        <div className='flex flex-col ml-60 flex-1'>
+                        <div className='flex flex-col md:ml-8 lg:ml-60 flex-1'>
                           {/* Technologies */}
-                          <div className="mb-8">
-                            <h4 className="text-white font-semibold mb-3">Technologies Used:</h4>
+                          <div className="mb-4 md:mb-8">
+                            <h4 className="text-white font-semibold mb-2 md:mb-3 text-sm md:text-base">Technologies Used:</h4>
                             <div className="flex flex-wrap gap-2">
                               {project.technologies.map((tech, techIndex) => (
                                 <span
                                   key={techIndex}
-                                  className="px-3 py-1 bg-gray-800 border border-gray-700 rounded-full text-sm text-gray-300 hover:border-white transition-colors duration-300"
+                                  className="px-2 py-1 md:px-3 bg-gray-800 border border-gray-700 rounded-full text-xs md:text-sm text-gray-300 hover:border-white transition-colors duration-300"
                                 >
                                   {tech}
                                 </span>
@@ -652,25 +694,25 @@ const LandingPage = () => {
                           {/* Action Button */}
                           <button
                             onClick={() => openProject(project.url)}
-                            className="self-start px-8 py-3 bg-gradient-to-br from-white to-gray-700 text-black font-bold rounded-lg transform hover:scale-105 transition-all duration-300 hover:shadow-lg flex items-center gap-2"
+                            className="self-start px-4 py-2 md:px-8 md:py-3 bg-gradient-to-br from-white to-gray-700 text-black font-bold rounded-lg transform hover:scale-105 transition-all duration-300 hover:shadow-lg flex items-center gap-2 text-sm md:text-base"
                           >
                             VIEW PROJECT
-                            <ExternalLink size={16} />
+                            <ExternalLink size={14} className="md:w-4 md:h-4" />
                           </button>
                         </div>
                       </div>
 
-                      {/* Left - Project Image */}
-                      <div className="relative overflow-hidden">
+                      {/* Project Image */}
+                      <div className="relative overflow-hidden flex-1 min-h-[200px] md:min-h-[300px]">
                         <img
                           src={project.image}
                           alt={project.name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-transparent opacity-70"></div>
-                        {/* Scanning effect */}
+                        {/* Scanning effect - hidden on mobile for performance */}
                         <div
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-20 w-2"
+                          className="hidden md:block absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-20 w-2"
                           style={{
                             animation: 'scan-horizontal 3s ease-in-out infinite',
                           }}
@@ -678,23 +720,23 @@ const LandingPage = () => {
                       </div>
                     </div>
 
-                    {/* Decorative Elements */}
-                    <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-white opacity-30"></div>
-                    <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-white opacity-30"></div>
-                    <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-white opacity-30"></div>
-                    <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-white opacity-30"></div>
+                    {/* Decorative Elements - smaller on mobile */}
+                    <div className="absolute top-2 left-2 md:top-4 md:left-4 w-4 h-4 md:w-8 md:h-8 border-l-2 border-t-2 border-white opacity-30"></div>
+                    <div className="absolute top-2 right-2 md:top-4 md:right-4 w-4 h-4 md:w-8 md:h-8 border-r-2 border-t-2 border-white opacity-30"></div>
+                    <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 w-4 h-4 md:w-8 md:h-8 border-l-2 border-b-2 border-white opacity-30"></div>
+                    <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 w-4 h-4 md:w-8 md:h-8 border-r-2 border-b-2 border-white opacity-30"></div>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Project Indicators */}
-            <div className="flex justify-center mt-8 space-x-4">
+            <div className="flex justify-center mt-6 md:mt-8 space-x-3 md:space-x-4">
               {projects.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentProject(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${
                     index === currentProject
                       ? 'bg-white scale-125'
                       : 'bg-gray-600 hover:bg-gray-400'
@@ -704,8 +746,8 @@ const LandingPage = () => {
             </div>
 
             {/* Project Counter */}
-            <div className="text-center mt-6">
-              <span className="text-gray-400 text-sm">
+            <div className="text-center mt-4 md:mt-6">
+              <span className="text-gray-400 text-xs md:text-sm">
                 Project {currentProject + 1} of {projects.length}
               </span>
             </div>
@@ -969,97 +1011,97 @@ const LandingPage = () => {
         </div>
       </div>
 
-      {/* Contact Section */}
-      <div id='contact' className="relative z-20 min-h-screen flex items-center justify-center py-20">
-        <div className="max-w-7xl mx-auto px-6">
+     {/* Contact Section */}
+      <div id='contact' className="relative z-20 min-h-screen flex items-center justify-center py-12 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-7xl font-black text-white mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-4">
               <span className="bg-gradient-to-br from-white via-gray-600 to-white bg-clip-text text-transparent">
                 CONTACT
               </span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-6"></div>
-            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-300 text-base sm:text-lg max-w-2xl mx-auto px-4">
               Let's discuss your next project or collaboration. I'm always open to exciting opportunities.
             </p>
           </div>
 
           {/* Contact Content */}
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Side - Contact Information */}
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {/* Contact Details */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 text-gray-300">
-                  <div className="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center">
-                    <Mail size={20} className="text-white" />
+              <div className="space-y-4 sm:space-y-6">
+                <div className="flex items-center gap-3 sm:gap-4 text-gray-300">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Mail size={18} className="text-white sm:w-5 sm:h-5" />
                   </div>
-                  <div>
-                    <p className="text-white font-semibold">Email</p>
-                    <p className="text-gray-300">chiragmalik400@gmail.com</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-4 text-gray-300">
-                  <div className="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center">
-                    <Phone size={20} className="text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold">Phone</p>
-                    <p className="text-gray-300">+91 7015617821</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-white font-semibold text-sm sm:text-base">Email</p>
+                    <p className="text-gray-300 text-sm sm:text-base break-all">chiragmalik400@gmail.com</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 text-gray-300">
-                  <div className="w-12 h-12 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center">
-                    <MapPin size={20} className="text-white" />
+                <div className="flex items-center gap-3 sm:gap-4 text-gray-300">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Phone size={18} className="text-white sm:w-5 sm:h-5" />
                   </div>
-                  <div>
-                    <p className="text-white font-semibold">Location</p>
-                    <p className="text-gray-300">Panipat, Haryana, India</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-white font-semibold text-sm sm:text-base">Phone</p>
+                    <p className="text-gray-300 text-sm sm:text-base">+91 7015617821</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 sm:gap-4 text-gray-300">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center flex-shrink-0">
+                    <MapPin size={18} className="text-white sm:w-5 sm:h-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-white font-semibold text-sm sm:text-base">Location</p>
+                    <p className="text-gray-300 text-sm sm:text-base">Panipat, Haryana, India</p>
                   </div>
                 </div>
               </div>
 
               {/* Social Media Links */}
               <div className="space-y-4">
-                <h3 className="text-xl font-bold text-white">Connect With Me</h3>
-                <div className="flex gap-4">
+                <h3 className="text-lg sm:text-xl font-bold text-white">Connect With Me</h3>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   {/* WhatsApp */}
                   <button
                     onClick={openWhatsApp}
-                    className="flex items-center gap-3 px-6 py-3 bg-gradient-to-br from-green-600 to-green-700 text-white rounded-full font-semibold hover:from-green-500 hover:to-green-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                    className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-br from-green-600 to-green-700 text-white rounded-full font-semibold hover:from-green-500 hover:to-green-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-sm sm:text-base"
                   >
-                    <MessageCircle size={20} />
+                    <MessageCircle size={18} className="sm:w-5 sm:h-5" />
                     WhatsApp
                   </button>
 
                   {/* LinkedIn */}
                   <button
                     onClick={openLinkedIn}
-                    className="flex items-center gap-3 px-6 py-3 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-full font-semibold hover:from-blue-500 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                    className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-full font-semibold hover:from-blue-500 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-sm sm:text-base"
                   >
-                    <Linkedin size={20} />
+                    <Linkedin size={18} className="sm:w-5 sm:h-5" />
                     LinkedIn
                   </button>
 
                   {/* Instagram */}
                   <button
                     onClick={openInstagram}
-                    className="flex items-center gap-3 px-6 py-3 bg-gradient-to-br from-pink-600 to-purple-700 text-white rounded-full font-semibold hover:from-pink-500 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                    className="flex items-center justify-center sm:justify-start gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-br from-pink-600 to-purple-700 text-white rounded-full font-semibold hover:from-pink-500 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-sm sm:text-base"
                   >
-                    <Instagram size={20} />
+                    <Instagram size={18} className="sm:w-5 sm:h-5" />
                     Instagram
                   </button>
                 </div>
               </div>
 
               {/* Quick Email Button */}
-              <div className="pt-6">
+              <div className="pt-4 sm:pt-6">
                 <button
                   onClick={sendEmail}
-                  className="px-8 py-3 bg-gradient-to-br from-white to-gray-700 text-black font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-br from-white to-gray-700 text-black font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:shadow-lg text-sm sm:text-base"
                 >
                   SEND EMAIL
                 </button>
@@ -1067,14 +1109,14 @@ const LandingPage = () => {
             </div>
 
             {/* Right Side - Contact Form */}
-            <div className="relative">
+            <div className="relative mt-8 lg:mt-0">
               {/* Futuristic Frame */}
-              <div className="relative bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-2xl p-8 overflow-hidden">
+              <div className="relative bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-2xl p-6 sm:p-8 overflow-hidden">
                 {/* Decorative Elements */}
-                <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-white opacity-30"></div>
-                <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-white opacity-30"></div>
-                <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-white opacity-30"></div>
-                <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-white opacity-30"></div>
+                <div className="absolute top-3 left-3 sm:top-4 sm:left-4 w-6 h-6 sm:w-8 sm:h-8 border-l-2 border-t-2 border-white opacity-30"></div>
+                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-6 h-6 sm:w-8 sm:h-8 border-r-2 border-t-2 border-white opacity-30"></div>
+                <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 w-6 h-6 sm:w-8 sm:h-8 border-l-2 border-b-2 border-white opacity-30"></div>
+                <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-6 h-6 sm:w-8 sm:h-8 border-r-2 border-b-2 border-white opacity-30"></div>
 
                 {/* Scanning effect */}
                 <div
@@ -1085,88 +1127,88 @@ const LandingPage = () => {
                 ></div>
 
                 <div className="relative z-10">
-                  <h3 className="text-2xl font-bold text-white mb-6">Send Message</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Send Message</h3>
                   
-                  <form onSubmit={handleFormSubmit} className="space-y-6">
-  <div>
-    <label className="block text-gray-300 text-sm font-semibold mb-2">
-      Full Name
-    </label>
-    <input
-      type="text"
-      name="name"
-      required
-      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-white focus:outline-none transition-colors duration-300"
-      placeholder="Your full name"
-    />
-  </div>
+                  <form onSubmit={handleFormSubmit} className="space-y-4 sm:space-y-6">
+                    <div>
+                      <label className="block text-gray-300 text-sm font-semibold mb-2">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-white focus:outline-none transition-colors duration-300 text-sm sm:text-base"
+                        placeholder="Your full name"
+                      />
+                    </div>
 
-  <div>
-    <label className="block text-gray-300 text-sm font-semibold mb-2">
-      Email Address
-    </label>
-    <input
-      type="email"
-      name="email"
-      required
-      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-white focus:outline-none transition-colors duration-300"
-      placeholder="your.email@example.com"
-    />
-  </div>
+                    <div>
+                      <label className="block text-gray-300 text-sm font-semibold mb-2">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-white focus:outline-none transition-colors duration-300 text-sm sm:text-base"
+                        placeholder="your.email@example.com"
+                      />
+                    </div>
 
-  <div>
-    <label className="block text-gray-300 text-sm font-semibold mb-2">
-      Message
-    </label>
-    <textarea
-      name="message"
-      rows="4"
-      required
-      className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-white focus:outline-none transition-colors duration-300 resize-none"
-      placeholder="Tell me about your project..."
-    ></textarea>
-  </div>
+                    <div>
+                      <label className="block text-gray-300 text-sm font-semibold mb-2">
+                        Message
+                      </label>
+                      <textarea
+                        name="message"
+                        rows="4"
+                        required
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:border-white focus:outline-none transition-colors duration-300 resize-none text-sm sm:text-base"
+                        placeholder="Tell me about your project..."
+                      ></textarea>
+                    </div>
 
-  <button
-    type="submit"
-    className="w-full px-8 py-3 bg-gradient-to-br from-white to-gray-700 text-black font-bold rounded-lg transform hover:scale-105 transition-all duration-300 hover:shadow-lg"
-  >
-    SEND MESSAGE
-  </button>
-</form>
+                    <button
+                      type="submit"
+                      className="w-full px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-br from-white to-gray-700 text-black font-bold rounded-lg transform hover:scale-105 transition-all duration-300 hover:shadow-lg text-sm sm:text-base"
+                    >
+                      SEND MESSAGE
+                    </button>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Call to Action */}
-          <div className="text-center mt-16">
-            <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-2xl p-8 relative overflow-hidden">
+          <div className="text-center mt-12 sm:mt-16">
+            <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-700 rounded-2xl p-6 sm:p-8 relative overflow-hidden">
               {/* Decorative background */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-5"></div>
               
               <div className="relative z-10">
-                <h3 className="text-3xl font-bold text-white mb-4">
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
                   Ready to Start Your Project?
                 </h3>
-                <p className="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+                <p className="text-gray-300 text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto px-4">
                   Let's turn your ideas into reality. I'm here to help you build something amazing.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                   <button
                     onClick={openWhatsApp}
-                    className="px-8 py-3 bg-gradient-to-br from-green-600 to-green-700 text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:shadow-lg flex items-center gap-2 justify-center"
+                    className="px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-br from-green-600 to-green-700 text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:shadow-lg flex items-center gap-2 justify-center text-sm sm:text-base"
                   >
-                    <MessageCircle size={20} />
+                    <MessageCircle size={18} className="sm:w-5 sm:h-5" />
                     Chat on WhatsApp
                   </button>
                   
                   <button
                     onClick={sendEmail}
-                    className="px-8 py-3 border-2 border-white text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:bg-white hover:text-black flex items-center gap-2 justify-center"
+                    className="px-6 sm:px-8 py-2.5 sm:py-3 border-2 border-white text-white font-bold rounded-full transform hover:scale-105 transition-all duration-300 hover:bg-white hover:text-black flex items-center gap-2 justify-center text-sm sm:text-base"
                   >
-                    <Mail size={20} />
+                    <Mail size={18} className="sm:w-5 sm:h-5" />
                     Send Email
                   </button>
                 </div>
@@ -1177,42 +1219,42 @@ const LandingPage = () => {
       </div>
 
       {/* Footer */}
-      <footer className="relative z-20 border-t border-gray-800 py-12">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+      <footer className="relative z-20 border-t border-gray-800 py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
             {/* Logo */}
-            <div className="text-2xl font-bold text-white mb-4 md:mb-0">
+            <div className="text-xl sm:text-2xl font-bold text-white mb-4 md:mb-0">
               <span className="bg-gradient-to-br from-white to-gray-600 bg-clip-text text-transparent">
                 Chirag Malik
               </span>
             </div>
 
             {/* Social Links */}
-            <div className="flex gap-6 mb-4 md:mb-0">
+            <div className="flex gap-4 sm:gap-6 mb-4 md:mb-0">
               <button
                 onClick={openWhatsApp}
-                className="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center text-white hover:border-white transition-all duration-300 transform hover:scale-110"
+                className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center text-white hover:border-white transition-all duration-300 transform hover:scale-110"
               >
-                <MessageCircle size={18} />
+                <MessageCircle size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
               
               <button
                 onClick={openLinkedIn}
-                className="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center text-white hover:border-white transition-all duration-300 transform hover:scale-110"
+                className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center text-white hover:border-white transition-all duration-300 transform hover:scale-110"
               >
-                <Linkedin size={18} />
+                <Linkedin size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
               
               <button
                 onClick={openInstagram}
-                className="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center text-white hover:border-white transition-all duration-300 transform hover:scale-110"
+                className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-full flex items-center justify-center text-white hover:border-white transition-all duration-300 transform hover:scale-110"
               >
-                <Instagram size={18} />
+                <Instagram size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
             </div>
 
             {/* Copyright */}
-            <div className="text-gray-400 text-sm">
+            <div className="text-gray-400 text-xs sm:text-sm">
               © 2024 Chirag Malik. All rights reserved.
             </div>
           </div>
